@@ -7,11 +7,6 @@ public class Player : MonoBehaviour
     [SerializeField]
     private GameObject laser;
 
-    void Start()
-    {
-        
-    }
-
     void Update()
     {
         FollowMouse();
