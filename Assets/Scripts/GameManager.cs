@@ -4,11 +4,10 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    private const float NORMAL_SPEED_AREA_PERCENTAGE = 0.2f;
-    private const float MAX_SPEED_REDUCTION = 0.5f;
+    private const float MAX_SPEED_CHANGE = 0.5f;
 
     [SerializeField]
-    private float _normalGameSpeed= 4f;
+    private float _normalGameSpeed = 4f;
 
     [SerializeField]
     private SpawnManager spawnManager;
@@ -16,9 +15,11 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     private GameObject player;
 
+    [HideInInspector]
+    public float CurrentGameSpeed = 1f;
+
     private GameObject currentPlayer;
     private Vector3 _stageDimensions;
-    private float _normalSpeedAreaLimit;
 
     public enum GameState { Start, Game, GameOver };
 
@@ -28,14 +29,11 @@ public class GameManager : MonoBehaviour
         get { return currentGameState; }
     }
 
-    public float CurrentGameSpeed = 1f;
-
     void Start()
     {
         currentGameState = GameState.Game;
 
         _stageDimensions = Camera.main.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height, 0));
-        CalculateNormalSpeedAreaLimit();
 
         spawnManager.StartEnemySpawning(_stageDimensions);
 
@@ -47,20 +45,24 @@ public class GameManager : MonoBehaviour
         CalculateSpeed();
     }
 
-    private void CalculateNormalSpeedAreaLimit()
-    {
-        _normalSpeedAreaLimit = _stageDimensions.x * NORMAL_SPEED_AREA_PERCENTAGE;
-    }
-
     private void CalculateSpeed()
     {
-        if (Mathf.Abs(currentPlayer.transform.position.x) <= _normalSpeedAreaLimit)
+        var maximumSpeedChange = _normalGameSpeed * MAX_SPEED_CHANGE;
+        var relativeSpeedChange = Mathf.Abs(currentPlayer.transform.position.x) / _stageDimensions.x;
+
+        if (currentPlayer.transform.position.x < 0) // Reduce speed
         {
-            CurrentGameSpeed = _normalGameSpeed;
+            CurrentGameSpeed = _normalGameSpeed - (relativeSpeedChange * maximumSpeedChange);
             return;
         }
 
-        CurrentGameSpeed = _normalGameSpeed * (Mathf.Abs(currentPlayer.transform.position.x) - _normalSpeedAreaLimit) / (_stageDimensions.x - _normalSpeedAreaLimit) * MAX_SPEED_REDUCTION;
+        if (currentPlayer.transform.position.x > 0) // Increase speed
+        {
+            CurrentGameSpeed = _normalGameSpeed + (relativeSpeedChange * maximumSpeedChange);
+            return;
+        }
+
+        CurrentGameSpeed = _normalGameSpeed;
     }
 
     public GameObject GetPlayer()

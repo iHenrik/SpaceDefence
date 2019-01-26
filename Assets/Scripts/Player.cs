@@ -7,12 +7,17 @@ public class Player : MonoBehaviour
     [SerializeField]
     private GameObject laser;
 
+    private float fireRate = 0.25f;
+    private float nextFire = 0f;
+
     void Update()
     {
         FollowMouse();
 
-        if (Input.GetMouseButtonUp(0))
+        if (Input.GetMouseButtonUp(0) && Time.time > nextFire)
         {
+            nextFire = Time.time + fireRate;
+
             Instantiate(laser, transform.position, transform.rotation);
         }
     }

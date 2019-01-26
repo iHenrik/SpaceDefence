@@ -6,12 +6,14 @@ namespace Assets.Scripts
     {
         private const string GAME_MANAGER_ID = "GameManager";
 
-        [SerializeField]
-        private float speed = 2f;
-
+        private float speed;
         private GameManager gameManager;
         private GameObject player;
 
+        [SerializeField]
+        private float fireRate;
+        
+        [HideInInspector]
         public bool IsHoming;
 
         private void Start()
@@ -22,6 +24,8 @@ namespace Assets.Scripts
 
         private void Update()
         {
+            speed = gameManager.CurrentGameSpeed;
+
             if (gameManager.CurrentGameState != GameManager.GameState.Game)
             {
                 GameObject.Destroy(this.gameObject);
