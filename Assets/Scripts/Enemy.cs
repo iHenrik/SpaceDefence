@@ -12,8 +12,7 @@ namespace Assets.Scripts
         private GameManager gameManager;
         private GameObject player;
 
-        public enum BehaviourType { Normal, Homing };
-        public BehaviourType Behaviour;
+        public bool IsHoming;
 
         private void Start()
         {
@@ -28,13 +27,13 @@ namespace Assets.Scripts
                 GameObject.Destroy(this.gameObject);
             }
 
-            if (Behaviour == BehaviourType.Normal)
+            if (IsHoming)
             {
-                transform.Translate(Vector3.left * speed * Time.deltaTime);
+                transform.position = Vector3.MoveTowards(transform.position, player.transform.position, speed * Time.deltaTime);
                 return;
             }
 
-            transform.position = Vector3.MoveTowards(transform.position, player.transform.position, speed * Time.deltaTime);
+            transform.Translate(Vector3.left * speed * Time.deltaTime);
         }
     }
 }

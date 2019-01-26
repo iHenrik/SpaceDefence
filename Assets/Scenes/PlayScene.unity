@@ -237,9 +237,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7da5b517bf0ee7048a68d2b4645678c0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gameManager: {fileID: 1185152925}
-  enemy: {fileID: 3583334016310918175, guid: fb626f85a7a3dbb4786807a67d5dd1bf, type: 3}
-  spawnRate: 2
+  _gameManager: {fileID: 1185152925}
+  _enemy: {fileID: 3583334016310918175, guid: fb626f85a7a3dbb4786807a67d5dd1bf, type: 3}
+  _spawnRate: 2
 --- !u!1 &1185152924
 GameObject:
   m_ObjectHideFlags: 0
