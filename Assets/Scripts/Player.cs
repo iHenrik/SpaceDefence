@@ -5,12 +5,12 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     [SerializeField]
-    private GameObject laser;
+    private GameObject ammo;
 
-    private float fireRate = 0.25f;
+    private float fireRate = 0.2f;
     private float nextFire = 0f;
 
-    void Update()
+    private void Update()
     {
         FollowMouse();
 
@@ -18,7 +18,8 @@ public class Player : MonoBehaviour
         {
             nextFire = Time.time + fireRate;
 
-            Instantiate(laser, transform.position, transform.rotation);
+            var ammoObject = Instantiate(ammo, transform.position, transform.rotation);
+            ammoObject.GetComponent<Ammo>().AmmoUser = Ammo.AmmoUserType.Player;
         }
     }
 

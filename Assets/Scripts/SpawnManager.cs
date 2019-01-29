@@ -21,7 +21,7 @@ public class SpawnManager : MonoBehaviour
     private float _spawnYMinPosition;
     private float _spawnYMaxPosition;
 
-    void Start()
+    private void Start()
     {
         _spawnYMinPosition = -Mathf.Abs(_stageDimensions.y - (_stageDimensions.y * (SPAWN_MARGIN_Y / 2)));
         _spawnYMaxPosition = _stageDimensions.y - (_stageDimensions.y * (SPAWN_MARGIN_Y / 2));
@@ -44,6 +44,7 @@ public class SpawnManager : MonoBehaviour
             var enemyObject = GameObject.Instantiate(_enemy, spawnPosition, Quaternion.identity);
             var enemyScript = enemyObject.GetComponent<Enemy>();
 
+            enemyScript.SetStageDimensions(_stageDimensions);
             if (Random.Range(0, 2) == 1)
             {
                 enemyScript.IsHoming = true;

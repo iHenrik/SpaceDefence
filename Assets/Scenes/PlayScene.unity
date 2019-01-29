@@ -269,8 +269,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9df53c84fa352cf4083baf85c350b05e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spawnManager: {fileID: 761855344}
-  player: {fileID: 4458609731036269067, guid: 7dfa1187b86b6624d8b0259c80112fe7, type: 3}
+  _normalGameSpeed: 4
+  _spawnManager: {fileID: 761855344}
+  _player: {fileID: 1006135311463802437, guid: 04c5a7d01d8afd84a83c446121ea15fd, type: 3}
+  _playerTotalLives: 3
+  CurrentGameSpeed: 1
 --- !u!4 &1185152926
 Transform:
   m_ObjectHideFlags: 0
