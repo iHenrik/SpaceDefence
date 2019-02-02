@@ -46,8 +46,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 113a9f974188b0041931b9f7be26bddf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 20
+  _speed: 30
+  _explosionAnimation: {fileID: 139366, guid: 12c28082f837b484f8135fb0bea2e82d, type: 3}
   SpriteRenderer: {fileID: 1363402585761741793}
+  _explosionClip: {fileID: 8300000, guid: 3247f3550a9bf4a4f8958d1ce3982250, type: 3}
   AmmoUser: 0
 --- !u!61 &8007678525482998519
 BoxCollider2D:

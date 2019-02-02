@@ -11,7 +11,13 @@ public class Ammo : MonoBehaviour
     private const string GAME_MANAGER_ID = "GameManager";
 
     [SerializeField]
-    private float speed = 30f;
+    private float _speed = 30f;
+
+    [SerializeField]
+    private GameObject _explosionAnimation;
+
+    [SerializeField]
+    private AudioClip _explosionClip;
 
     [SerializeField]
     public SpriteRenderer SpriteRenderer;
@@ -22,11 +28,11 @@ public class Ammo : MonoBehaviour
     [HideInInspector]
     public AmmoUserType AmmoUser;
 
-    private GameManager gameManager;
+    private GameManager _gameManager;
 
     private void Start()
     {
-        gameManager = GameObject.Find(GAME_MANAGER_ID).GetComponent<GameManager>();
+        _gameManager = GameObject.Find(GAME_MANAGER_ID).GetComponent<GameManager>();
     }
 
     private void Update()
@@ -36,18 +42,18 @@ public class Ammo : MonoBehaviour
 
     private void Move()
     {
-        if (AmmoUser == AmmoUserType.Player)
+        if(AmmoUser == AmmoUserType.Player)
         {
-            transform.Translate(Vector3.right * speed * Time.deltaTime);
+            transform.Translate(Vector3.right * _speed * Time.deltaTime);
         }
         else
         {
-            transform.Translate(Vector3.left * speed * Time.deltaTime);
+            transform.Translate(Vector3.left * _speed * Time.deltaTime);
         }
 
         //check if laser is out of game area and destroy
-        if (transform.position.x < (HORIZONTAL_BOUND * -1) || transform.position.x > HORIZONTAL_BOUND ||
-             transform.position.y < (VERTICAL_BOUND * -1) || transform.position.y > VERTICAL_BOUND)
+        if(transform.position.x < ( HORIZONTAL_BOUND * -1 ) || transform.position.x > HORIZONTAL_BOUND ||
+             transform.position.y < ( VERTICAL_BOUND * -1 ) || transform.position.y > VERTICAL_BOUND)
         {
             Destroy(gameObject);
         }
@@ -55,14 +61,15 @@ public class Ammo : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.tag == ENEMY_TAG && AmmoUser == AmmoUserType.Player)
+        if(collision.gameObject.tag == ENEMY_TAG && AmmoUser == AmmoUserType.Player)
         {
-            //if (gameManager != null)
-            //{
-            //    gameManager.AddScore();
-            //}
+            if(_gameManager != null)
+            {
+                _gameManager.AddScore();
+            }
 
-            //GameObject.Instantiate(explosionAnimation, collision.gameObject.transform.position, Quaternion.identity);
+            GameObject.Instantiate(_explosionAnimation, collision.gameObject.transform.position, Quaternion.identity);
+            AudioSource.PlayClipAtPoint(_explosionClip, transform.position);
 
             //Destroy enemy
             GameObject.Destroy(collision.gameObject);
@@ -71,9 +78,10 @@ public class Ammo : MonoBehaviour
             GameObject.Destroy(gameObject);
         }
 
-        if (collision.gameObject.tag == PLAYER_TAG && AmmoUser == AmmoUserType.Enemy)
+        if(collision.gameObject.tag == PLAYER_TAG && AmmoUser == AmmoUserType.Enemy && !_gameManager.CurrentPlayer.GetComponent<Player>().HasCooldown)
         {
-            //GameObject.Instantiate(explosionAnimation, collision.gameObject.transform.position, Quaternion.identity);
+            GameObject.Instantiate(_explosionAnimation, collision.gameObject.transform.position, Quaternion.identity);
+            AudioSource.PlayClipAtPoint(_explosionClip, transform.position);
 
             //Destroy player
             GameObject.Destroy(collision.gameObject);
@@ -81,7 +89,7 @@ public class Ammo : MonoBehaviour
             //Destroy ammo
             GameObject.Destroy(gameObject);
 
-            gameManager.PlayerDestroyed();
+            _gameManager.PlayerDestroyed();
         }
     }
 }

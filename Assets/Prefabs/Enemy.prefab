@@ -30,7 +30,8 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.15, y: 0.15, z: 0.15}
-  m_Children: []
+  m_Children:
+  - {fileID: 6829295713882151685}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -46,8 +47,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 66518edab6b5f644c8d5f1f7d8f7e20b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ammo: {fileID: 5796484296707007819, guid: 22dd14b740eb04b478b8d514081b1b0c, type: 3}
-  fireRate: 1.25
+  _normalSpeed: 3
+  _ammo: {fileID: 5796484296707007819, guid: 22dd14b740eb04b478b8d514081b1b0c, type: 3}
+  _barrelTip: {fileID: 4770951624061890978}
+  _fireRate: 0.15
+  _fireBurstLength: 0.5
+  _fireBurstCooldown: 1
+  _explosionAnimation: {fileID: 139366, guid: 12c28082f837b484f8135fb0bea2e82d, type: 3}
+  _machineGunClip: {fileID: 8300000, guid: 76867b83071472445bfe4d4e5fe0b92f, type: 3}
+  _explosionClip: {fileID: 8300000, guid: 3247f3550a9bf4a4f8958d1ce3982250, type: 3}
   IsHoming: 0
 --- !u!50 &7423242147732193318
 Rigidbody2D:
@@ -57,7 +65,7 @@ Rigidbody2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3583334016310918175}
-  m_BodyType: 0
+  m_BodyType: 1
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
@@ -144,3 +152,33 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 11.982786, y: 2.6090288}
   m_EdgeRadius: 0
+--- !u!1 &4770951624061890978
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6829295713882151685}
+  m_Layer: 0
+  m_Name: BarrelTip
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6829295713882151685
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4770951624061890978}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -3.23, y: -0.99, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 2428047095686765404}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
