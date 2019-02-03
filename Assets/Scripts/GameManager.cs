@@ -67,6 +67,8 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
+        Cursor.visible = false;
+
         audioSource = GetComponent<AudioSource>();
         _stageDimensions = Camera.main.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height, 0));
 
@@ -111,7 +113,7 @@ public class GameManager : MonoBehaviour
             return;
         }
 
-        CurrentPlayer = Instantiate(_player);
+        InstantiatePlayer();
     }
 
     public void AddScore()
@@ -158,7 +160,12 @@ public class GameManager : MonoBehaviour
         audioSource.Play();
 
         _spawnManager.StartEnemySpawning(_stageDimensions);
-        CurrentPlayer = Instantiate(_player, new Vector3(Input.mousePosition.x, Input.mousePosition.y, 0), Quaternion.identity);
+        InstantiatePlayer();
+    }
+
+    private void InstantiatePlayer()
+    {
+        CurrentPlayer = Instantiate(_player, new Vector3(Input.mousePosition.x, Input.mousePosition.y, -1), Quaternion.identity);
     }
 
     private void InitializeGameOver()
@@ -173,9 +180,6 @@ public class GameManager : MonoBehaviour
 
     private void CalculateSpeed()
     {
-        CurrentGameSpeedPercentage = 1f;
-        return;
-
         var maximumSpeedChange = _normalGameSpeed * MAX_SPEED_CHANGE;
         var relativeSpeedChange = Mathf.Abs(CurrentPlayer.transform.position.x) / _stageDimensions.x * MAX_SPEED_CHANGE;
 

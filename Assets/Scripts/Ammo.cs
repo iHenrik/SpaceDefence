@@ -20,7 +20,7 @@ public class Ammo : MonoBehaviour
     private AudioClip _explosionClip;
 
     [SerializeField]
-    public SpriteRenderer SpriteRenderer;
+    public SpriteRenderer SpriteRendererComponent;
 
     [HideInInspector]
     public enum AmmoUserType { Player, Enemy }

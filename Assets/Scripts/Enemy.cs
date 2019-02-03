@@ -79,7 +79,7 @@ namespace Assets.Scripts
                 {
                     var ammoObject = Instantiate(_ammo, _barrelTip.transform.position, transform.rotation);
                     var ammoScript = ammoObject.GetComponent<Ammo>();
-                    ammoScript.SpriteRenderer.flipX = true;
+                    ammoScript.SpriteRendererComponent.flipX = true;
                     ammoScript.AmmoUser = Ammo.AmmoUserType.Enemy;
 
                     if(Time.time > _nextMachineGunAudioPlay)
