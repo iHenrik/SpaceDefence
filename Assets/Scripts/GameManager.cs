@@ -1,13 +1,11 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using TMPro;
+﻿using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
     private const float MAX_SPEED_CHANGE = 0.85f;
-    private const float GAME_OVER_VIEW_TIME = 1.5f;
+    private const float GAME_OVER_VIEW_TIME = 1f;
     private const string ENEMY_TAG = "Enemy";
 
     [SerializeField]
@@ -56,6 +54,7 @@ public class GameManager : MonoBehaviour
     private int _playerRemainingPlanes = 0;
     private int _score;
     private float _gameOverViewTimeStamp = 0;
+    private Player _currentPlayerComponent;
 
     public enum GameState { Menu, Game, GameOver };
 
@@ -99,6 +98,11 @@ public class GameManager : MonoBehaviour
 
         if(currentGameState == GameState.Game)
         {
+            if(_currentPlayerComponent != null && _currentPlayerComponent.HasCooldown)
+            {
+                CurrentGameSpeedPercentage = 1f;
+                return;
+            }
             CalculateSpeed();
         }
 
@@ -175,6 +179,7 @@ public class GameManager : MonoBehaviour
     private void InstantiatePlayer()
     {
         CurrentPlayer = Instantiate(_player, new Vector3(Input.mousePosition.x, Input.mousePosition.y, -1), Quaternion.identity);
+        _currentPlayerComponent = CurrentPlayer.GetComponent<Player>();
     }
 
     private void InitializeGameOver()

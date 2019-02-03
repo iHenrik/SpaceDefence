@@ -50,7 +50,6 @@ namespace Assets.Scripts
         {
             _gameManager = GameObject.Find(GAME_MANAGER_ID).GetComponent<GameManager>();
             _player = _gameManager.GetPlayer();
-
             StartCoroutine(FireBurst());
         }
 

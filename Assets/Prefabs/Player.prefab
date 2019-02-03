@@ -28,7 +28,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1006135311463802437}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: -1}
   m_LocalScale: {x: 0.15, y: 0.15, z: 0.15}
   m_Children:
   - {fileID: 1376057310714579549}
@@ -97,7 +97,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _ammo: {fileID: 5796484296707007819, guid: 22dd14b740eb04b478b8d514081b1b0c, type: 3}
   _barrelTip: {fileID: 6301445543412007071}
-  _cooldownTime: 2
+  _cooldownTime: 1.5
   _machineGunClip: {fileID: 8300000, guid: 76867b83071472445bfe4d4e5fe0b92f, type: 3}
   _planeSpriteRenderer: {fileID: 2858235876033581084}
   HasCooldown: 0

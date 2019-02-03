@@ -11,7 +11,7 @@ public class Player : MonoBehaviour
     private GameObject _barrelTip;
 
     [SerializeField]
-    private float _cooldownTime = 2f;
+    private float _cooldownTime = 1.5f;
 
     [SerializeField]
     private AudioClip _machineGunClip;

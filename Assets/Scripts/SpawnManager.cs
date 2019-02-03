@@ -77,6 +77,7 @@ public class SpawnManager : MonoBehaviour
         Vector3 spawnPosition = new Vector3();
         spawnPosition.x = _stageDimensions.x + SPAWN_MARGIN_X;
         spawnPosition.y = Random.Range(_spawnYMinPosition, _spawnYMaxPosition);
+        spawnPosition.z = -1f;
 
         return spawnPosition;
     }
