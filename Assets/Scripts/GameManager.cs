@@ -101,6 +101,15 @@ public class GameManager : MonoBehaviour
         {
             CalculateSpeed();
         }
+
+        if(Input.GetKeyUp(KeyCode.Q) && currentGameState == GameState.Menu)
+        {
+#if UNITY_EDITOR
+            UnityEditor.EditorApplication.isPlaying = false;
+#else
+                  Application.Quit();
+#endif
+        }
     }
 
     public void PlayerDestroyed()
