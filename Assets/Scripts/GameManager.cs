@@ -57,12 +57,7 @@ public class GameManager : MonoBehaviour
     private Player _currentPlayerComponent;
 
     public enum GameState { Menu, Game, GameOver };
-
-    private GameState currentGameState;
-    public GameState CurrentGameState
-    {
-        get { return currentGameState; }
-    }
+    public GameState CurrentGameState { get; private set; }
 
     private void Start()
     {
@@ -78,7 +73,7 @@ public class GameManager : MonoBehaviour
     {
         if(Input.GetKeyUp(KeyCode.Space))
         {
-            if(currentGameState == GameState.Menu)
+            if(CurrentGameState == GameState.Menu)
             {
                 _hud.SetActive(true);
                 StartView.enabled = false;
@@ -86,7 +81,7 @@ public class GameManager : MonoBehaviour
 
                 return;
             }
-            if(currentGameState == GameState.GameOver)
+            if(CurrentGameState == GameState.GameOver)
             {
                 if(Time.time > ( _gameOverViewTimeStamp + GAME_OVER_VIEW_TIME ))
                 {
@@ -96,7 +91,7 @@ public class GameManager : MonoBehaviour
             }
         }
 
-        if(currentGameState == GameState.Game)
+        if(CurrentGameState == GameState.Game)
         {
             if(_currentPlayerComponent != null && _currentPlayerComponent.HasCooldown)
             {
@@ -106,7 +101,7 @@ public class GameManager : MonoBehaviour
             CalculateSpeed();
         }
 
-        if(Input.GetKeyUp(KeyCode.Q) && currentGameState == GameState.Menu)
+        if(Input.GetKeyUp(KeyCode.Q) && CurrentGameState == GameState.Menu)
         {
 #if UNITY_EDITOR
             UnityEditor.EditorApplication.isPlaying = false;
@@ -147,7 +142,7 @@ public class GameManager : MonoBehaviour
 
     private void InitializeMenu()
     {
-        currentGameState = GameState.Menu;
+        CurrentGameState = GameState.Menu;
 
         _hud.SetActive(false);
         StartView.enabled = true;
@@ -160,7 +155,7 @@ public class GameManager : MonoBehaviour
 
     private void InitializeGame()
     {
-        currentGameState = GameState.Game;
+        CurrentGameState = GameState.Game;
 
         _score = 0;
         _scoreText.text = "0";
@@ -184,7 +179,7 @@ public class GameManager : MonoBehaviour
 
     private void InitializeGameOver()
     {
-        currentGameState = GameState.GameOver;
+        CurrentGameState = GameState.GameOver;
         GameOverView.enabled = true;
 
         CleanObjects();
